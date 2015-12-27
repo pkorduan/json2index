@@ -1,0 +1,11 @@
+kategorie
+versorgungsart
+angebot
+einrichtung
+strasse
+gemeinde
+eigentuemer
+traeger
+dachverband
+ansprechpartner
+besonderheit
