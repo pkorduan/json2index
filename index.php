@@ -47,8 +47,8 @@
       if (in_array($key, $attributes)) {
         $words = explode(' ', $value);
         foreach($words AS $word) {
-          $word = trim(strtolower($word), " .,:\"()-");
-          if ($word != '' && strlen($word) > 2 && !in_array($word, $stopWords)) {
+          $word = trim($word, " .,:\"()-");
+          if ($word != '' && strlen($word) > 2 && !in_array(strtolower($word), $stopWords)) {
             if (array_key_exists($word, $index)) {
               if (!in_array($set['id'], $index[$word])) {
                 array_push($index[$word], $set['id']);
