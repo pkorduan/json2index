@@ -40,7 +40,7 @@
   $file_content = file_get_contents($config['json']['source']);
   $data = json_decode($file_content, true);
 
-  $index = []; # assiziatives Array mit index wörtern
+  $index = array(); # assiziatives Array mit index wörtern
 
   foreach($data AS $set) {
     foreach($set AS $key => $value) {
