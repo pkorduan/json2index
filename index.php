@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+<?php
+  $config_file = 'conf/' . ($_REQUEST['c'] != '' ? $_REQUEST['c'] . '.ini' : 'config.ini');
+
+  if (!file_exists($config_file)) {
+    echo 'Konfigurationsdatei: ' . $config_file . ($_REQUEST['c'] != '' ? ' aus dem Parameter c' : '') . ' nicht gefunden.';
+    exit;
+  }
+
+  $config = parse_ini_file($config_file, true);
+  if (!file_exists($config['json']['source'])) {
+    echo 'Die JSON-Datei: ' . $config['json']['source'] . ' konnte nicht gefunden werden. Bitte prüfen sie die Angabe source im Abschnitt json der Konfigurationsdatei: ' . $config_file . ' oder sorgen Sie dafür, dass die JSON-Datei an der angegeben Stelle verfügbar ist.';
+  }
+?><!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -6,9 +18,6 @@
 </head>
 <body>
 <h1>Hello, welcome to the JSON to Index Converter.</h1>
-<?php
-  $config = parse_ini_file('config.ini', true);
-  ?>
   <h2>Content of ini file.</h2>
   <pre>
   <?php
@@ -21,15 +30,12 @@
   };
 
   # load config file with attributes
-  $attributes = array_map(
-    $remove_newline,
-    file('attributes.txt', true)
-  );
+  $attributes = $config['json']['attributes'];
 
   # load config file with stopwords
   $stopWords = array_map(
     $remove_newline,
-    file('stopwords.txt', true)
+    file('conf/stopwords.txt', true)
   );
 
   ?><h2>Convert and Save JSON</h2>
@@ -47,15 +53,15 @@
       if (in_array($key, $attributes)) {
         $words = explode(' ', $value);
         foreach($words AS $word) {
-          $word = trim($word, " .,:\"()-");
+          $word = trim($word, " .,:\"/()-");
           if ($word != '' && strlen($word) > 2 && !in_array(strtolower($word), $stopWords)) {
             if (array_key_exists($word, $index)) {
-              if (!in_array($set['id'], $index[$word])) {
-                array_push($index[$word], $set['id']);
+              if (!in_array($set[$config['json']['identifier']], $index[$word])) {
+                array_push($index[$word], $set[$config['json']['identifier']]);
               }
             }
             else {
-              $index[$word] = array($set['id']);
+              $index[$word] = array($set[$config['json']['identifier']]);
             }
           }
         }
