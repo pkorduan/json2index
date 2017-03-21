@@ -16,17 +16,17 @@ Copy the config sample file from config/samples/contig.ini to a self-named ini f
 The config files must have extension ini.
 
 Section [json]
-  source ... Location of the JSON file
-  identifier ... Name of the attribute that have unique identifier of the features in the JSON file 
-  attributes[] ... Name of the first attribut to be searched for words in the index
-  attributes[] ... Name of the second attribut to be searched for words in the index
-  attributes[] ... Add more attribute names to be searched for words
+ - source ... Location of the JSON file
+ - identifier ... Name of the attribute that have unique identifier of the features in the JSON file 
+ - attributes[] ... Name of the first attribut to be searched for words in the index
+ - attributes[] ... Name of the second attribut to be searched for words in the index
+ - attributes[] ... Add more attribute names to be searched for words
 
 Section [index]
-  localPath ... Local path to the directory the index file should be saved
-  webPath ... Web path to the directory the index file should be saved
-  fileName ... Name of the index file
-  caseSensitive ... true if the words should be handeld in index file caseSensitive, false if not
+ - localPath ... Local path to the directory the index file should be saved
+ - webPath ... Web path to the directory the index file should be saved
+ - fileName ... Name of the index file
+ - caseSensitive ... true if the words should be handeld in index file caseSensitive, false if not
   
 ## Call the app
 To create the index, call your Address following with the parameter c=yourconfigfilename e.g.
