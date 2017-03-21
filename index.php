@@ -54,6 +54,9 @@
         $words = explode(' ', $value);
         foreach($words AS $word) {
           $word = trim($word, " .,:\"/()-");
+          if (!$config['index']['caseSensitive']) {
+            $word = strtolower($word);
+          }
           if ($word != '' && strlen($word) > 2 && !in_array(strtolower($word), $stopWords)) {
             if (array_key_exists($word, $index)) {
               if (!in_array($set[$config['json']['identifier']], $index[$word])) {
